@@ -111,6 +111,7 @@ public class RegistrationController implements Initializable {
         } else {
             if (inputValidation()) {
                 if (!passField.getText().equals(cPassField.getText())) {
+                    //TODO show label warning!
                     return false;
                 }
             }
