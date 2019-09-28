@@ -17,6 +17,8 @@ public enum StageManager {
     INSTANCE;
     FXMLLoader loader;
     Stage primaryStage;
+    double xOffSet = 0;
+    double yOffSet = 0;
 
     public void setLoader(FXMLLoader loader) {
         this.loader = loader;
@@ -35,9 +37,21 @@ public enum StageManager {
         String fxmlFile = view.getFxmlFile();
         String title = view.getTitle();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(fxmlFile)));
+        root.setOnMousePressed(event -> {
+            xOffSet = event.getSceneX();
+            yOffSet = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffSet);
+            primaryStage.setY(event.getScreenY() - yOffSet);
+        });
         primaryStage.setTitle(title);
         primaryStage.setScene(new Scene(root));
         primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
+    }
+
+    public void minimize(){
+        primaryStage.setIconified(true);
     }
 }

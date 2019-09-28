@@ -4,7 +4,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
             prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: rgb(255,255,255);"
             xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controller.LoginController">
     <AnchorPane id="leftScreen" prefHeight="540.0" prefWidth="384.0">
@@ -85,7 +86,7 @@
         </font>
     </CheckBox>
     <Button id="signInButton" fx:id="signInButton" layoutX="436.0" layoutY="384.0" mnemonicParsing="false"
-            onAction="#gotoSignIn" prefHeight="34.0" prefWidth="116.0" stylesheets="@../styles/login.css" text="SIGN IN"
+            onAction="#gotoMain" prefHeight="34.0" prefWidth="116.0" stylesheets="@../styles/login.css" text="SIGN IN"
             textAlignment="CENTER">
         <font>
             <Font name="Open Sans Bold" size="16.0"/>
