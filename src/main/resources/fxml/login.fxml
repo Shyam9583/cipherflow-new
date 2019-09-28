@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: rgb(255,255,255);"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controller.LoginController">
+    <AnchorPane id="leftScreen" prefHeight="540.0" prefWidth="384.0">
+        <ImageView fitHeight="540.0" fitWidth="384.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/Left Screen.jpg"/>
+        </ImageView>
+    </AnchorPane>
+    <Button id="closeButton" fx:id="closeButton" layoutX="916.0" layoutY="14.0" mnemonicParsing="false"
+            onAction="#closeWindow" styleClass="defaultButton" stylesheets="@../styles/login.css" text="X"
+            textAlignment="CENTER">
+        <font>
+            <Font name="Open Sans Bold" size="14.0"/>
+        </font>
+    </Button>
+    <Button id="minButton" fx:id="minButton" layoutX="879.0" layoutY="14.0" mnemonicParsing="false"
+            onAction="#minimizeWindow" styleClass="defaultButton" stylesheets="@../styles/login.css" text="-"
+            textAlignment="CENTER">
+        <font>
+            <Font name="Open Sans Bold" size="14.0"/>
+        </font>
+    </Button>
+    <Text layoutX="567.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account ?"
+          textAlignment="CENTER">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </Text>
+    <Button id="registerButton" fx:id="createButton" layoutX="738.0" layoutY="65.0" mnemonicParsing="false"
+            onAction="#gotoRegister" prefHeight="32.0" prefWidth="172.0" styleClass="defaultButton"
+            stylesheets="@../styles/login.css" text="CREATE ACCOUNT" textAlignment="CENTER">
+        <font>
+            <Font name="Open Sans Bold" size="14.0"/>
+        </font>
+    </Button>
+    <Text layoutX="443.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login To CipherFlow">
+        <font>
+            <Font name="Open Sans Bold" size="20.0"/>
+        </font>
+    </Text>
+    <Text layoutX="443.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your login details below">
+        <font>
+            <Font name="Open Sans Light" size="14.0"/>
+        </font>
+    </Text>
+    <Text layoutX="442.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USER ID">
+        <font>
+            <Font name="Open Sans Bold" size="14.0"/>
+        </font>
+    </Text>
+    <TextField fx:id="uidField" layoutX="473.0" layoutY="215.0" prefHeight="29.0" prefWidth="326.0" promptText="UserId"
+               styleClass="defaultInput" stylesheets="@../styles/login.css">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </TextField>
+    <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="443.0" layoutY="219.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../images/user-circle.png"/>
+    </ImageView>
+    <Text layoutX="440.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
+        <font>
+            <Font name="Open Sans Bold" size="14.0"/>
+        </font>
+    </Text>
+    <PasswordField fx:id="passField" layoutX="473.0" layoutY="297.0" prefHeight="29.0" prefWidth="326.0"
+                   promptText="Password" styleClass="defaultInput" stylesheets="@../styles/login.css">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </PasswordField>
+    <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="443.0" layoutY="301.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../images/key.png"/>
+    </ImageView>
+    <CheckBox fx:id="rememberBox" layoutX="443.0" layoutY="345.0" mnemonicParsing="false" text="Remember me">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </CheckBox>
+    <Button id="signInButton" fx:id="signInButton" layoutX="436.0" layoutY="384.0" mnemonicParsing="false"
+            onAction="#gotoSignIn" prefHeight="34.0" prefWidth="116.0" stylesheets="@../styles/login.css" text="SIGN IN"
+            textAlignment="CENTER">
+        <font>
+            <Font name="Open Sans Bold" size="16.0"/>
+        </font>
+    </Button>
+</AnchorPane>

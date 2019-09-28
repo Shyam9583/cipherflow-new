@@ -1,0 +1,39 @@
+.defaultButton {
+-fx-background-color:#FFFFFF;
+-fx-effect:drop-shadow(three-pass-box,rgba(0,0,0,0.8),5,5,5);
+}
+.defaultInput {
+-fx-background-color:#FBFBFB;
+-fx-border-color:rgba(0,0,0,0.8);
+-fx-padding:5px;
+-fx-effect:drop-shadow(three-pass-box,rgba(0,0,0,0.6),5,5,5);
+}
+#leftScreen {
+-fx-effect:drop-shadow(three-pass-box,rgba(0,0,0,0.6),5,5,0);
+}
+#registerButton {
+-fx-border-color:rgba(0,0,0,0.8);
+-fx-background-radius:5px;
+}
+#registerButton:pressed {
+-fx-scale-x: 0.9;
+-fx-scale-y: 0.9;
+}
+#registerButton:hover {
+-fx-background-color:#5AA61E;
+-fx-border-color:#5AA61E;
+-fx-text-fill:#FFFFFF;
+}
+#signInButton {
+-fx-background-color:#2E2D2D;
+-fx-text-fill:#FFFFFF;
+-fx-background-radius:0px;
+}
+#signInButton:pressed {
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}
+
+#signInbutton:hover {
+    -fx-scale-y: 1.1;
+}
