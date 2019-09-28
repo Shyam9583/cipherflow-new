@@ -1,15 +1,14 @@
 .defaultButton {
 -fx-background-color:#FFFFFF;
--fx-effect:drop-shadow(three-pass-box,rgba(0,0,0,0.8),5,5,5);
 }
 .defaultInput {
 -fx-background-color:#FBFBFB;
 -fx-border-color:rgba(0,0,0,0.8);
 -fx-padding:5px;
--fx-effect:drop-shadow(three-pass-box,rgba(0,0,0,0.6),5,5,5);
 }
-#leftScreen {
--fx-effect:drop-shadow(three-pass-box,rgba(0,0,0,0.6),5,5,0);
+.defaultInput:focused {
+-fx-faint-focus-color:transparent;
+-fx-focus-color:rgba(18, 79, 27,0.3);
 }
 #registerButton {
 -fx-border-color:rgba(0,0,0,0.8);

@@ -24,7 +24,6 @@ public class MainApplication extends Application {
     private ListPreferences listPreferences;
     private UserBean userBean;
     private CipherBean cipherBean;
-    private UserService userService;
 
     public static void main(String[] args) {
         launch(args);
@@ -43,12 +42,13 @@ public class MainApplication extends Application {
         if (savedUserId == null) {
             stageManager.switchScene(FXMLView.LOGIN);
         } else {
+            UserService userService = new UserServiceImplimentation();
             User user = userService.getUser(savedUserId);
             if (user == null) {
                 userPreferences.removeUserID();
             } else {
                 setUserInfo(user);
-                stageManager.switchScene(FXMLView.LOGIN);
+                stageManager.switchScene(FXMLView.MAIN);
             }
         }
 
@@ -76,6 +76,5 @@ public class MainApplication extends Application {
         cipherBean = CipherBean.INSTANCE;
         listPreferences.setListPreferences();
         userPreferences.setUserPreferences();
-        userService = new UserServiceImplimentation();
     }
 }

@@ -62,7 +62,7 @@ public class LoginController implements Initializable {
     }
 
     public void gotoRegister(ActionEvent actionEvent) throws IOException {
-        stageManager.switchScene(FXMLView.LOGIN);
+        stageManager.switchScene(FXMLView.REGISTRATION);
     }
 
     public void gotoMain(ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException {
@@ -72,7 +72,7 @@ public class LoginController implements Initializable {
         if (emptyValidation(userId, password)) {
             if (authenticate(userId, password)) {
                 setUserInfo(remember);
-                stageManager.switchScene(FXMLView.LOGIN);
+                stageManager.switchScene(FXMLView.MAIN);
             }
         }
     }
@@ -106,13 +106,14 @@ public class LoginController implements Initializable {
         return true;
     }
 
-    private boolean authenticate(String uid, String password) {
+    private boolean authenticate(String uid, String password) throws NoSuchPaddingException, NoSuchAlgorithmException {
         boolean result = false;
         User u = userService.getUser(uid);
         if (u == null) {
             loginwarning.setText("UserID is not registered! Please Sign Up !");
         } else {
-            if (u.getPassword().equals(password)) {
+            cipherBean.setParameters(u.getSecretKey(), u.getIvKey(), u.getSalt());
+            if (cipherBean.getSecurePassword(password).equals(u.getPassword())) {
                 user = u;
                 result = true;
             } else loginwarning.setText("Password is incorrect!");

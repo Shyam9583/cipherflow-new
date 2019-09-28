@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 public class EFileList implements Serializable {
+
+    private static final long serialVersionUID = 4545454545454545455L;
+
     private List<EFile> files;
 
     public List<EFile> getFiles() {

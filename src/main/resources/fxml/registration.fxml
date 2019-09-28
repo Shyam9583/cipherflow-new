@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="540.0" prefWidth="960.0"
+            style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="controller.RegistrationController">
+    <AnchorPane id="register-left" prefHeight="540.0" prefWidth="360.0" stylesheets="@../styles/registration.css">
+        <ImageView fitHeight="540.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/Register-left.jpg"/>
+        </ImageView>
+    </AnchorPane>
+    <Button id="closeButton" fx:id="closeButton" layoutX="916.0" layoutY="14.0" mnemonicParsing="false"
+            onAction="#closeWindow" styleClass="defaultButton" stylesheets="@../styles/login.css" text="X"
+            textAlignment="CENTER">
+        <font>
+            <Font name="Open Sans Bold" size="14.0"/>
+        </font>
+    </Button>
+    <Button id="minButton" fx:id="minButton" layoutX="879.0" layoutY="14.0" mnemonicParsing="false"
+            onAction="#minimizeWindow" styleClass="defaultButton" stylesheets="@../styles/login.css" text="-"
+            textAlignment="CENTER">
+        <font>
+            <Font name="Open Sans Bold" size="14.0"/>
+        </font>
+    </Button>
+    <ImageView fitHeight="50.0" fitWidth="150.0" layoutX="475.0" layoutY="36.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../images/small logo.png"/>
+    </ImageView>
+    <Text layoutX="480.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register an account">
+        <font>
+            <Font name="Open Sans Bold" size="18.0"/>
+        </font>
+    </Text>
+    <Text layoutX="480.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="Enter your information below to create a new account">
+        <font>
+            <Font name="Open Sans Light" size="12.0"/>
+        </font>
+    </Text>
+    <Button id="backButton" fx:id="backButton" layoutX="397.0" layoutY="35.0" mnemonicParsing="false"
+            onAction="#gotoLogin" stylesheets="@../styles/registration.css">
+        <font>
+            <Font size="14.0"/>
+        </font>
+        <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../images/arrow-left.jpg"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <TextField fx:id="uidField" layoutX="480.0" layoutY="161.0" prefHeight="30.0" prefWidth="350.0" promptText="User ID"
+               styleClass="default-input" stylesheets="@../styles/registration.css">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </TextField>
+    <TextField fx:id="fname" layoutX="480.0" layoutY="296.0" prefHeight="30.0" prefWidth="350.0" promptText="First Name"
+               styleClass="default-input" stylesheets="@../styles/registration.css">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </TextField>
+    <TextField fx:id="email" layoutX="480.0" layoutY="394.0" prefHeight="30.0" prefWidth="350.0" promptText="Email"
+               styleClass="default-input" stylesheets="@../styles/registration.css">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </TextField>
+    <TextField fx:id="lname" layoutX="480.0" layoutY="344.0" prefHeight="30.0" prefWidth="350.0" promptText="Last Name"
+               styleClass="default-input" stylesheets="@../styles/registration.css">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </TextField>
+    <PasswordField fx:id="passField" layoutX="480.0" layoutY="205.0" prefHeight="25.0" prefWidth="350.0"
+                   promptText="Password" styleClass="default-input" stylesheets="@../styles/registration.css">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </PasswordField>
+    <PasswordField fx:id="cPassField" layoutX="480.0" layoutY="249.0" prefHeight="25.0" prefWidth="350.0"
+                   promptText="Confirm Password" styleClass="default-input" stylesheets="@../styles/registration.css">
+        <font>
+            <Font name="Open Sans Regular" size="14.0"/>
+        </font>
+    </PasswordField>
+    <Button fx:id="signUpButton" layoutX="482.0" layoutY="448.0" mnemonicParsing="false" onAction="#signUp"
+            prefHeight="27.0" prefWidth="164.0" styleClass="signUp-button" stylesheets="@../styles/registration.css"
+            text="Sign Up" textAlignment="CENTER" textFill="WHITE">
+        <font>
+            <Font name="Open Sans Bold" size="14.0"/>
+        </font>
+    </Button>
+    <Button fx:id="resetButton" layoutX="666.0" layoutY="448.0" mnemonicParsing="false" onAction="#reset"
+            prefHeight="27.0" prefWidth="164.0" styleClass="reset-button" stylesheets="@../styles/registration.css"
+            text="Reset" textAlignment="CENTER" textFill="WHITE">
+        <font>
+            <Font name="Open Sans Bold" size="14.0"/>
+        </font>
+    </Button>
+</AnchorPane>

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class EFile implements Serializable {
+    private static final long serialVersionUID = 4545454545454545454L;
     private String fileName;
     private String filePath;
     private Date lastEncrypted;

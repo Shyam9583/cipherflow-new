@@ -15,6 +15,30 @@ public enum FXMLView {
         public String getFxmlFile() {
             return "fxml/login.fxml";
         }
+    },
+
+    REGISTRATION {
+        @Override
+        public String getTitle() {
+            return "Registration Screen";
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "fxml/registration.fxml";
+        }
+    },
+
+    MAIN {
+        @Override
+        public String getTitle() {
+            return "CipherFlow";
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "fxml/main.fxml";
+        }
     };
 
     //returns the title to display on screen

@@ -12,4 +12,5 @@ public interface UserService {
     boolean deleteUser(User user);
 
     boolean deleteUser(String userId);
+
 }
