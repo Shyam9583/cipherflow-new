@@ -6,9 +6,9 @@
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.url">
-            jdbc:mysql://localhost:3306/cipherflow
+            jdbc:mysql://cipherflow.c8h4im4zhliu.ap-southeast-1.rds.amazonaws.com:3306/cipherflow
         </property>
-        <property name="connection.username">root</property>
+        <property name="connection.username">Shyam</property>
         <property name="connection.password">DEVIL9583</property>
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">1</property>

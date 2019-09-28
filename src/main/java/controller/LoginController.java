@@ -1,18 +1,25 @@
 package controller;
 
+import bean.CipherBean;
+import bean.UserBean;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import model.EFileList;
+import model.User;
+import service.UserService;
+import service.UserServiceImplimentation;
+import util.ListPreferences;
 import util.StageManager;
+import util.UserPreferences;
 import view.FXMLView;
 
+import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -31,8 +38,20 @@ public class LoginController implements Initializable {
     public CheckBox rememberBox;
     @FXML
     public Button signInButton;
+    @FXML
+    public Label uidwarning;
+    @FXML
+    public Label passwarning;
+    @FXML
+    public Label loginwarning;
 
     private StageManager stageManager;
+    private UserService userService;
+    private User user;
+    private UserBean userBean;
+    private CipherBean cipherBean;
+    private ListPreferences listPreferences;
+    private UserPreferences userPreferences;
 
     public void closeWindow(ActionEvent actionEvent) {
         Platform.exit();
@@ -46,11 +65,67 @@ public class LoginController implements Initializable {
         stageManager.switchScene(FXMLView.LOGIN);
     }
 
-    public void gotoMain(ActionEvent actionEvent) throws IOException {
-        stageManager.switchScene(FXMLView.LOGIN);
+    public void gotoMain(ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException {
+        String userId = uidField.getText();
+        String password = passField.getText();
+        boolean remember = rememberBox.isSelected();
+        if (emptyValidation(userId, password)) {
+            if (authenticate(userId, password)) {
+                setUserInfo(remember);
+                stageManager.switchScene(FXMLView.LOGIN);
+            }
+        }
+    }
+
+    private void setUserInfo(boolean isChecked) throws NoSuchPaddingException, NoSuchAlgorithmException {
+        userBean.setUserID(user.getUserId());
+        userBean.setFirstName(user.getFirstName());
+        userBean.setLastName(user.getLastName());
+        userBean.setEmail(user.getEmail());
+        cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+        EFileList eFileList = listPreferences.getList();
+        if (eFileList == null) {
+            userBean.setFileList(new EFileList());
+        } else {
+            userBean.setFileList(eFileList);
+        }
+        if (isChecked) {
+            userPreferences.setUserID(user.getUserId());
+        }
+    }
+
+    private boolean emptyValidation(String userId, String password) {
+        if (userId.isEmpty() | userId.equals("")) {
+            uidwarning.setText("User ID can't be empty");
+            return false;
+        }
+        if (password.isEmpty() | password.equals("")) {
+            passwarning.setText("Password can't be empty");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean authenticate(String uid, String password) {
+        boolean result = false;
+        User u = userService.getUser(uid);
+        if (u == null) {
+            loginwarning.setText("UserID is not registered! Please Sign Up !");
+        } else {
+            if (u.getPassword().equals(password)) {
+                user = u;
+                result = true;
+            } else loginwarning.setText("Password is incorrect!");
+        }
+        return result;
     }
 
     public void initialize(URL location, ResourceBundle resources) {
         stageManager = StageManager.INSTANCE;
+        userBean = UserBean.INSTANCE;
+        cipherBean = CipherBean.INSTANCE;
+        listPreferences = ListPreferences.INSTANCE;
+        userPreferences = UserPreferences.INSTANCE;
+        userService = new UserServiceImplimentation();
     }
 }
