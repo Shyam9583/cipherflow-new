@@ -51,7 +51,7 @@ public enum StageManager {
         primaryStage.centerOnScreen();
     }
 
-    public void minimize(){
+    public void minimize() {
         primaryStage.setIconified(true);
     }
 }

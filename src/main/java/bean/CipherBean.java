@@ -13,27 +13,28 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public enum Cipherbean {
+public enum CipherBean {
     INSTANCE;
     IvParameterSpec ivParameterSpec;
     SecretKeySpec secretKeySpec;
     Cipher cipher;
-    String key;
-    String IV;
+    byte[] salt;
 
 
-    //this method intializes the above variables
-    public void setParameters() throws NoSuchAlgorithmException, NoSuchPaddingException {
+    //this method initializes the above variables
+    public void setParameters(String key, String IV, String salt) throws NoSuchAlgorithmException, NoSuchPaddingException {
 
 
         // Get Cipher Instance
-        cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
         // Create SecretKeySpec
-        secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
+        this.secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
 
         // Create IvParameterSpec
-        ivParameterSpec = new IvParameterSpec(IV.getBytes(StandardCharsets.UTF_8));
+        this.ivParameterSpec = new IvParameterSpec(IV.getBytes(StandardCharsets.UTF_8));
+
+        this.salt = salt.getBytes();
     }
 
 
@@ -121,7 +122,7 @@ public enum Cipherbean {
     }
 
     //this method is for password hashing
-    public String getSecurePassword(String passwordToHash, byte[] salt) {
+    public String getSecurePassword(String passwordToHash) {
         String newPassword = null;
         MessageDigest md;
         try {

@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class GeneratorClass {
 
+
     //this method generates Secret Key
     public static String GenerateKey() {
 
