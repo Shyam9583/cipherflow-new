@@ -102,4 +102,34 @@
             <Font name="Open Sans Bold" size="14.0"/>
         </font>
     </Button>
+    <Label fx:id="uidwarning" layoutX="842.0" layoutY="169.0" textFill="#971717">
+        <font>
+            <Font name="Open Sans Regular" size="12.0"/>
+        </font>
+    </Label>
+    <Label fx:id="emailwarning" layoutX="842.0" layoutY="402.0" textFill="#971717">
+        <font>
+            <Font name="Open Sans Regular" size="12.0"/>
+        </font>
+    </Label>
+    <Label fx:id="lnamewarning" layoutX="842.0" layoutY="352.0" textFill="#971717">
+        <font>
+            <Font name="Open Sans Regular" size="12.0"/>
+        </font>
+    </Label>
+    <Label fx:id="fnamewarning" layoutX="843.0" layoutY="304.0" textFill="#971717">
+        <font>
+            <Font name="Open Sans Regular" size="12.0"/>
+        </font>
+    </Label>
+    <Label fx:id="cpasswarning" layoutX="842.0" layoutY="262.0" textFill="#971717">
+        <font>
+            <Font name="Open Sans Regular" size="12.0"/>
+        </font>
+    </Label>
+    <Label fx:id="passwarning" layoutX="843.0" layoutY="213.0" textFill="#971717">
+        <font>
+            <Font name="Open Sans Regular" size="12.0"/>
+        </font>
+    </Label>
 </AnchorPane>

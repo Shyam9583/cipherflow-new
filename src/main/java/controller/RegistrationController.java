@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.EFileList;
@@ -48,6 +49,18 @@ public class RegistrationController implements Initializable {
     public Button signUpButton;
     @FXML
     public Button resetButton;
+    @FXML
+    public Label uidwarning;
+    @FXML
+    public Label emailwarning;
+    @FXML
+    public Label lnamewarning;
+    @FXML
+    public Label fnamewarning;
+    @FXML
+    public Label cpasswarning;
+    @FXML
+    public Label passwarning;
 
     private StageManager stageManager;
     private UserPreferences userPreferences;
@@ -77,6 +90,8 @@ public class RegistrationController implements Initializable {
                 userPreferences.setUserID(user.getUserId());
                 setLocalData();
                 System.out.println(user.toString());
+            } else {
+                uidwarning.setText("userId already exists");
             }
         }
     }
@@ -106,36 +121,45 @@ public class RegistrationController implements Initializable {
     }
 
     private boolean validateInputs() {
+        boolean result = false;
         if (emptyValidation()) {
             return false;
         } else {
             if (inputValidation()) {
                 if (!passField.getText().equals(cPassField.getText())) {
-                    //TODO show label warning!
-                    return false;
+                    passwarning.setText("passwords don't match");
+                    cpasswarning.setText("passwords don't match");
+                } else {
+                    result = true;
                 }
             }
         }
-        return true;
+        return result;
     }
 
     private boolean inputValidation() {
         if (patternValidation(uidField.getText(), "[A-Za-z0-9]+")) {
+            uidwarning.setText("only letters and numbers allowed");
             return false;
         }
         if (patternValidation(passField.getText(), "[A-Za-z0-9!@#$%^&*]{8,}")) {
+            passwarning.setText("size should be 8 or more characters");
             return false;
         }
         if (patternValidation(cPassField.getText(), "[A-Za-z0-9!@#$%^&*]{8,}")) {
+            cpasswarning.setText("size should be 8 or more characters");
             return false;
         }
         if (patternValidation(fname.getText(), "[A-Za-z]+")) {
+            fnamewarning.setText("only letters allowed");
             return false;
         }
         if (patternValidation(lname.getText(), "[A-Za-z]+")) {
+            lnamewarning.setText("only letters allowed");
             return false;
         }
         if (patternValidation(email.getText(), "[^@]+@[^\\.]+\\..+")) {
+            email.setText("invalid email id");
             return false;
         }
         return true;
@@ -155,21 +179,27 @@ public class RegistrationController implements Initializable {
         String emailValue = email.getText();
 
         if (uidValues.isEmpty() | uidValues.equals("")) {
+            uidwarning.setText("Field can't be empty");
             return true;
         }
         if (passwordValue.isEmpty() | passwordValue.equals("")) {
+            passwarning.setText("Field can't be empty");
             return true;
         }
         if (cPasswordValue.isEmpty() | cPasswordValue.equals("")) {
+            cpasswarning.setText("Field can't be empty");
             return true;
         }
         if (fNameValue.isEmpty() | fNameValue.equals("")) {
+            fnamewarning.setText("Field can't be empty");
             return true;
         }
         if (lNameValue.isEmpty() | lNameValue.equals("")) {
+            lnamewarning.setText("Field can't be empty");
             return true;
         }
         if (emailValue.isEmpty() | emailValue.equals("")) {
+            emailwarning.setText("Field can't be empty");
             return true;
         }
         return false;

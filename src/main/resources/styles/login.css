@@ -22,6 +22,7 @@
 -fx-background-color:#5AA61E;
 -fx-border-color:#5AA61E;
 -fx-text-fill:#FFFFFF;
+-fx-scale:1.1;
 }
 #signInButton {
 -fx-background-color:#2E2D2D;
@@ -32,7 +33,24 @@
     -fx-scale-y: 0.9;
     -fx-scale-x: 0.9;
 }
-
 #signInbutton:hover {
     -fx-scale-y: 1.1;
+}
+
+#closeButton:hover {
+    -fx-text-fill:rgb(255,0,0);
+    -fx-font-size:18;
+}
+
+#closeButton:pressed {
+    -fx-font-size:14;
+}
+
+#minButton:hover {
+    -fx-text-fill:rgb(0,0,255);
+    -fx-font-size:18;
+}
+
+#minButton:pressed {
+    -fx-font-size:14;
 }
