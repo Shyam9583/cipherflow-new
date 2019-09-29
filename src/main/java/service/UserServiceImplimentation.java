@@ -62,24 +62,6 @@ public class UserServiceImplimentation implements UserService {
     }
 
     @Override
-    public boolean deleteUser(User user) {
-        boolean result = false;
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.delete(user);
-            transaction.commit();
-            result = true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    @Override
     public boolean deleteUser(String userId) {
         boolean result = false;
         User user;
