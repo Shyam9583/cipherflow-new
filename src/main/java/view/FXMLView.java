@@ -39,6 +39,54 @@ public enum FXMLView {
         public String getFxmlFile() {
             return "fxml/main.fxml";
         }
+    },
+
+    PROFILE {
+        @Override
+        public String getTitle() {
+            return "Profile";
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "fxml/profile.fxml";
+        }
+    },
+
+    DASHBOARD {
+        @Override
+        public String getTitle() {
+            return "Dashboard";
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "fxml/dashboard.fxml";
+        }
+    },
+
+    ABOUT {
+        @Override
+        public String getTitle() {
+            return "About Us";
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "fxml/about.fxml";
+        }
+    },
+
+    LEARN {
+        @Override
+        public String getTitle() {
+            return "Learn the App";
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "fxml/learn.fxml";
+        }
     };
 
     //returns the title to display on screen

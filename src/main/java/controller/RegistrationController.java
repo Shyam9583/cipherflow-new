@@ -82,15 +82,16 @@ public class RegistrationController implements Initializable {
         stageManager.switchScene(FXMLView.LOGIN);
     }
 
-    public void signUp(ActionEvent actionEvent) throws NoSuchAlgorithmException, NoSuchPaddingException {
+    public void signUp(ActionEvent actionEvent) throws NoSuchAlgorithmException, NoSuchPaddingException, IOException {
         if (validateInputs()) {
             if (userService.getUser(uidField.getText()) == null) {
                 setUserInformation();
                 userService.createUser(user);
                 userPreferences.setUserID(user.getUserId());
                 setLocalData();
-                System.out.println(user.toString());
+                stageManager.switchScene(FXMLView.MAIN);
             } else {
+                cleanUpWarning();
                 uidwarning.setText("userId already exists");
             }
         }
@@ -127,6 +128,7 @@ public class RegistrationController implements Initializable {
         } else {
             if (inputValidation()) {
                 if (!passField.getText().equals(cPassField.getText())) {
+                    cleanUpWarning();
                     passwarning.setText("passwords don't match");
                     cpasswarning.setText("passwords don't match");
                 } else {
@@ -139,27 +141,33 @@ public class RegistrationController implements Initializable {
 
     private boolean inputValidation() {
         if (patternValidation(uidField.getText(), "[A-Za-z0-9]+")) {
+            cleanUpWarning();
             uidwarning.setText("only letters and numbers allowed");
             return false;
         }
         if (patternValidation(passField.getText(), "[A-Za-z0-9!@#$%^&*]{8,}")) {
+            cleanUpWarning();
             passwarning.setText("size should be 8 or more characters");
             return false;
         }
         if (patternValidation(cPassField.getText(), "[A-Za-z0-9!@#$%^&*]{8,}")) {
+            cleanUpWarning();
             cpasswarning.setText("size should be 8 or more characters");
             return false;
         }
         if (patternValidation(fname.getText(), "[A-Za-z]+")) {
+            cleanUpWarning();
             fnamewarning.setText("only letters allowed");
             return false;
         }
         if (patternValidation(lname.getText(), "[A-Za-z]+")) {
+            cleanUpWarning();
             lnamewarning.setText("only letters allowed");
             return false;
         }
         if (patternValidation(email.getText(), "[^@]+@[^\\.]+\\..+")) {
-            email.setText("invalid email id");
+            cleanUpWarning();
+            emailwarning.setText("invalid email id");
             return false;
         }
         return true;
@@ -179,26 +187,32 @@ public class RegistrationController implements Initializable {
         String emailValue = email.getText();
 
         if (uidValues.isEmpty() | uidValues.equals("")) {
+            cleanUpWarning();
             uidwarning.setText("Field can't be empty");
             return true;
         }
         if (passwordValue.isEmpty() | passwordValue.equals("")) {
+            cleanUpWarning();
             passwarning.setText("Field can't be empty");
             return true;
         }
         if (cPasswordValue.isEmpty() | cPasswordValue.equals("")) {
+            cleanUpWarning();
             cpasswarning.setText("Field can't be empty");
             return true;
         }
         if (fNameValue.isEmpty() | fNameValue.equals("")) {
+            cleanUpWarning();
             fnamewarning.setText("Field can't be empty");
             return true;
         }
         if (lNameValue.isEmpty() | lNameValue.equals("")) {
+            cleanUpWarning();
             lnamewarning.setText("Field can't be empty");
             return true;
         }
         if (emailValue.isEmpty() | emailValue.equals("")) {
+            cleanUpWarning();
             emailwarning.setText("Field can't be empty");
             return true;
         }
@@ -223,5 +237,14 @@ public class RegistrationController implements Initializable {
         cipherBean = CipherBean.INSTANCE;
         user = new User();
         userService = new UserServiceImplimentation();
+    }
+
+    private void cleanUpWarning() {
+        uidwarning.setText("");
+        passwarning.setText("");
+        cpasswarning.setText("");
+        fnamewarning.setText("");
+        lnamewarning.setText("");
+        emailwarning.setText("");
     }
 }

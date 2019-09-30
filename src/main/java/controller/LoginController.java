@@ -96,10 +96,12 @@ public class LoginController implements Initializable {
 
     private boolean emptyValidation(String userId, String password) {
         if (userId.isEmpty() | userId.equals("")) {
+            cleanUpWarning();
             uidwarning.setText("User ID can't be empty");
             return false;
         }
         if (password.isEmpty() | password.equals("")) {
+            cleanUpWarning();
             passwarning.setText("Password can't be empty");
             return false;
         }
@@ -110,13 +112,17 @@ public class LoginController implements Initializable {
         boolean result = false;
         User u = userService.getUser(uid);
         if (u == null) {
+            cleanUpWarning();
             loginwarning.setText("UserID is not registered! Please Sign Up !");
         } else {
             cipherBean.setParameters(u.getSecretKey(), u.getIvKey(), u.getSalt());
             if (cipherBean.getSecurePassword(password).equals(u.getPassword())) {
                 user = u;
                 result = true;
-            } else loginwarning.setText("Password is incorrect!");
+            } else {
+                cleanUpWarning();
+                loginwarning.setText("Password is incorrect!");
+            }
         }
         return result;
     }
@@ -128,5 +134,11 @@ public class LoginController implements Initializable {
         listPreferences = ListPreferences.INSTANCE;
         userPreferences = UserPreferences.INSTANCE;
         userService = new UserServiceImplimentation();
+    }
+
+    private void cleanUpWarning() {
+        uidwarning.setText("");
+        passwarning.setText("");
+        loginwarning.setText("");
     }
 }

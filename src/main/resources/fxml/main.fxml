@@ -24,8 +24,7 @@
     <ImageView fitHeight="540.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/main-left.png"/>
     </ImageView>
-    <ImageView fitHeight="39.0" fitWidth="160.0" layoutX="17.0" layoutY="33.0" pickOnBounds="true"
-               preserveRatio="true">
+    <ImageView fitHeight="39.0" fitWidth="160.0" layoutX="17.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/small logo main.png"/>
     </ImageView>
     <Button fx:id="profile" layoutY="112.0" mnemonicParsing="false" onAction="#gotoProfile" prefHeight="52.0"
@@ -88,9 +87,8 @@
             </ImageView>
         </graphic>
     </Button>
-    <AnchorPane fx:id="content" layoutX="202.0" layoutY="76.0" prefHeight="453.0" prefWidth="744.0"/>
-    <Text fx:id="pageName" layoutX="201.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0"
-    >
+    <AnchorPane fx:id="content" layoutX="201.0" layoutY="53.0" prefHeight="450.0" prefWidth="740.0"/>
+    <Text fx:id="pageName" layoutX="201.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0">
         <font>
             <Font name="Open Sans Bold" size="16.0"/>
         </font>
