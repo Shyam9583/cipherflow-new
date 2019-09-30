@@ -43,20 +43,10 @@
     -fx-scale-x: 0.9;
 }
 
-#closeButton:hover {
-    -fx-text-fill:rgb(255,0,0);
-    -fx-font-size:18;
-}
-
 #closeButton:pressed {
-    -fx-font-size:14;
-}
-
-#minButton:hover {
-    -fx-text-fill:rgb(0,0,255);
-    -fx-font-size:18;
+    -fx-font-size:12;
 }
 
 #minButton:pressed {
-    -fx-font-size:14;
+    -fx-font-size:12;
 }

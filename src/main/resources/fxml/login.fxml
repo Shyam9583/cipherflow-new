@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: rgb(255,255,255);"
+            minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #f8f8f8;"
             xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controller.LoginController">
     <AnchorPane id="leftScreen" prefHeight="540.0" prefWidth="384.0">
         <ImageView fitHeight="540.0" fitWidth="384.0" pickOnBounds="true" preserveRatio="true">

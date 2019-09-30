@@ -1,5 +1,5 @@
 .defaultButton {
--fx-background-color:#FFFFFF;
+-fx-background-color:#f8f8f8;
 }
 .defaultInput {
 -fx-background-color:#FBFBFB;
@@ -21,7 +21,7 @@
 #registerButton:hover {
 -fx-background-color:#5AA61E;
 -fx-border-color:#5AA61E;
--fx-text-fill:#FFFFFF;
+-fx-text-fill:#Ffffff;
 -fx-scale:1.1;
 }
 #signInButton {
@@ -37,20 +37,10 @@
     -fx-scale-y: 1.1;
 }
 
-#closeButton:hover {
-    -fx-text-fill:rgb(255,0,0);
-    -fx-font-size:18;
-}
-
 #closeButton:pressed {
-    -fx-font-size:14;
-}
-
-#minButton:hover {
-    -fx-text-fill:rgb(0,0,255);
-    -fx-font-size:18;
+    -fx-font-size:12;
 }
 
 #minButton:pressed {
-    -fx-font-size:14;
+    -fx-font-size:12;
 }
