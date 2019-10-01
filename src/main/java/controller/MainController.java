@@ -1,5 +1,6 @@
 package controller;
 
+import bean.CipherBean;
 import bean.UserBean;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,15 +11,19 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.EFileList;
 import model.User;
 import service.UserService;
 import service.UserServiceImplimentation;
+import util.ListPreferences;
 import util.StageManager;
 import util.UserPreferences;
 import view.FXMLView;
 
+import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -45,22 +50,44 @@ public class MainController implements Initializable {
     private StageManager stageManager;
     private UserPreferences userPreferences;
     private UserBean userBean;
+    private CipherBean cipherBean;
+    private ListPreferences listPreferences;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         userBean = UserBean.INSTANCE;
         stageManager = StageManager.INSTANCE;
         userPreferences = UserPreferences.INSTANCE;
+        cipherBean = CipherBean.INSTANCE;
+        listPreferences = ListPreferences.INSTANCE;
         if (userBean.getUserID() == null) {
             UserService userService = new UserServiceImplimentation();
             User user = userService.getUser(userPreferences.getUserID());
-            userBean.setFirstName(user.getFirstName());
+            try {
+                setUserInformation(user);
+            } catch (NoSuchPaddingException | NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
         }
         pageName.setText(userBean.getFirstName() + "'s " + FXMLView.DASHBOARD.getTitle());
         try {
             setContent(FXMLView.DASHBOARD);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void setUserInformation(User user) throws NoSuchPaddingException, NoSuchAlgorithmException {
+        userBean.setUserID(user.getUserId());
+        userBean.setFirstName(user.getFirstName());
+        userBean.setLastName(user.getLastName());
+        userBean.setEmail(user.getEmail());
+        cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+        EFileList eFileList = listPreferences.getList();
+        if (eFileList == null) {
+            userBean.setFileList(new EFileList());
+        } else {
+            userBean.setFileList(eFileList);
         }
     }
 
