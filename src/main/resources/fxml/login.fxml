@@ -7,7 +7,8 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #f8f8f8;"
+            minWidth="-Infinity"
+            prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #f8f8f8;"
             xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controller.LoginController">
     <AnchorPane id="leftScreen" prefHeight="540.0" prefWidth="384.0">
         <ImageView fitHeight="540.0" fitWidth="384.0" pickOnBounds="true" preserveRatio="true">
@@ -106,4 +107,6 @@
             <Font name="Open Sans Regular" size="14.0"/>
         </font>
     </Label>
+    <ImageView fx:id="loading" fitHeight="100.0" fitWidth="100.0" layoutX="579.0" layoutY="362.0" pickOnBounds="true"
+               preserveRatio="true"/>
 </AnchorPane>

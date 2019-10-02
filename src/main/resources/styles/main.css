@@ -13,3 +13,52 @@
     -fx-scale-y: 0.9;
     -fx-scale-x: 0.9;
 }
+#selectButton {
+-fx-background-color:transparent;
+-fx-border-radius:2;
+-fx-border-color:rgba(0,0,0,0.5);
+}
+
+#selectButton:hover {
+-fx-background-color:rgba(18, 130, 56, 1);
+-fx-border:color:transparent;
+-fx-text-fill:#ffffff;
+}
+
+#selectButton:pressed {
+-fx-scale-x:0.9;
+-fx-scale-y:0.9;
+}
+
+#browseButton
+{
+-fx-background-color:#3F3012;
+-fx-border-radius:2;
+}
+
+#browseButton:pressed {
+-fx-scale-x:0.9;
+-fx-scale-y:0.9;
+}
+
+#encryptButton
+{
+-fx-background-color:#125A26;
+-fx-border-radius:2;
+}
+
+#encryptButton:pressed {
+-fx-scale-x:0.9;
+-fx-scale-y:0.9;
+}
+
+#decryptButton
+{
+-fx-background-color:#274E7C;
+-fx-border-radius:2;
+}
+
+#decryptButton:pressed {
+-fx-scale-x:0.9;
+-fx-scale-y:0.9;
+}

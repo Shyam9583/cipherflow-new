@@ -87,8 +87,8 @@
             </ImageView>
         </graphic>
     </Button>
-    <AnchorPane fx:id="content" layoutX="201.0" layoutY="53.0" prefHeight="450.0" prefWidth="740.0"/>
-    <Text fx:id="pageName" layoutX="201.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0">
+    <AnchorPane fx:id="content" layoutX="201.0" layoutY="72.0" prefHeight="450.0" prefWidth="740.0"/>
+    <Text fx:id="pageName" layoutX="201.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text">
         <font>
             <Font name="Open Sans Bold" size="16.0"/>
         </font>

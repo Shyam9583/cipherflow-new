@@ -7,7 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import model.EFileList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.User;
 import service.UserService;
 import service.UserServiceImplimentation;
@@ -44,6 +45,8 @@ public class LoginController implements Initializable {
     public Label passwarning;
     @FXML
     public Label loginwarning;
+    @FXML
+    public ImageView loading;
 
     private StageManager stageManager;
     private UserService userService;
@@ -66,10 +69,12 @@ public class LoginController implements Initializable {
     }
 
     public void gotoMain(ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException {
+        Image image = new Image("images/Round-loading.gif");
         String userId = uidField.getText();
         String password = passField.getText();
         boolean remember = rememberBox.isSelected();
         if (emptyValidation(userId, password)) {
+            loading.setImage(image);
             if (authenticate(userId, password)) {
                 setUserInfo(remember);
                 stageManager.switchScene(FXMLView.MAIN);
@@ -83,12 +88,6 @@ public class LoginController implements Initializable {
         userBean.setLastName(user.getLastName());
         userBean.setEmail(user.getEmail());
         cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
-        EFileList eFileList = listPreferences.getList();
-        if (eFileList == null) {
-            userBean.setFileList(new EFileList());
-        } else {
-            userBean.setFileList(eFileList);
-        }
         if (isChecked) {
             userPreferences.setUserID(user.getUserId());
         }
@@ -124,6 +123,7 @@ public class LoginController implements Initializable {
                 loginwarning.setText("Password is incorrect!");
             }
         }
+        loading.setImage(null);
         return result;
     }
 

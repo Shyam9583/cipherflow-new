@@ -3,6 +3,8 @@ package controller;
 import bean.CipherBean;
 import bean.UserBean;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.EFile;
 import model.EFileList;
 import model.User;
 import service.UserService;
@@ -24,10 +27,12 @@ import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    private static ObservableList<EFile> eFileObservableList;
     @FXML
     public Button dashboard;
     @FXML
@@ -46,7 +51,6 @@ public class MainController implements Initializable {
     public AnchorPane content;
     @FXML
     public Text pageName;
-
     private StageManager stageManager;
     private UserPreferences userPreferences;
     private UserBean userBean;
@@ -63,31 +67,22 @@ public class MainController implements Initializable {
         if (userBean.getUserID() == null) {
             UserService userService = new UserServiceImplimentation();
             User user = userService.getUser(userPreferences.getUserID());
+            userBean.setUserID(user.getUserId());
+            userBean.setFirstName(user.getFirstName());
+            userBean.setLastName(user.getLastName());
+            userBean.setEmail(user.getEmail());
             try {
-                setUserInformation(user);
-            } catch (NoSuchPaddingException | NoSuchAlgorithmException e) {
+                cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+            } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
                 e.printStackTrace();
             }
         }
+        eFileObservableList = FXCollections.observableList(userBean.getFileList().getFiles());
         pageName.setText(userBean.getFirstName() + "'s " + FXMLView.DASHBOARD.getTitle());
         try {
             setContent(FXMLView.DASHBOARD);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void setUserInformation(User user) throws NoSuchPaddingException, NoSuchAlgorithmException {
-        userBean.setUserID(user.getUserId());
-        userBean.setFirstName(user.getFirstName());
-        userBean.setLastName(user.getLastName());
-        userBean.setEmail(user.getEmail());
-        cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
-        EFileList eFileList = listPreferences.getList();
-        if (eFileList == null) {
-            userBean.setFileList(new EFileList());
-        } else {
-            userBean.setFileList(eFileList);
         }
     }
 
@@ -97,6 +92,7 @@ public class MainController implements Initializable {
     }
 
     public void closeWindow(ActionEvent actionEvent) {
+        saveList();
         Platform.exit();
     }
 
@@ -125,7 +121,13 @@ public class MainController implements Initializable {
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
+        saveList();
         userPreferences.removeUserID();
         stageManager.switchScene(FXMLView.LOGIN);
+    }
+
+    private void saveList() {
+        userBean.setFileList(new EFileList(new ArrayList<>(eFileObservableList)));
+        listPreferences.setList(userBean.getFileList());
     }
 }

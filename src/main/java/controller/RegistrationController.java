@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import model.EFileList;
 import model.User;
 import service.UserService;
 import service.UserServiceImplimentation;
@@ -102,11 +101,6 @@ public class RegistrationController implements Initializable {
         userBean.setFirstName(user.getFirstName());
         userBean.setLastName(user.getLastName());
         userBean.setEmail(user.getEmail());
-        userPreferences.setUserID(user.getUserId());
-        EFileList eFileList = listPreferences.getList();
-        if (eFileList == null) {
-            userBean.setFileList(new EFileList());
-        } else userBean.setFileList(eFileList);
     }
 
     private void setUserInformation() throws NoSuchPaddingException, NoSuchAlgorithmException {
