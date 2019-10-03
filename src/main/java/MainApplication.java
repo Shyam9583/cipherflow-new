@@ -25,6 +25,7 @@ public class MainApplication extends Application {
     private UserBean userBean;
     private CipherBean cipherBean;
     private ListPreferences listPreferences;
+    private UserService userService;
 
     public static void main(String[] args) {
         launch(args);
@@ -50,7 +51,6 @@ public class MainApplication extends Application {
     }
 
     private void saveLocalData() {
-        UserService userService = new UserServiceImplimentation();
         User user = userService.getUser(userPreferences.getUserID());
         userBean.setUserID(user.getUserId());
         userBean.setFirstName(user.getFirstName());
@@ -66,6 +66,11 @@ public class MainApplication extends Application {
         if (savedList.getFiles() == null) {
             userBean.setFileList(new EFileList());
         } else userBean.setFileList(savedList);
+        try {
+            stageManager.switchScene(FXMLView.MAIN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -77,6 +82,7 @@ public class MainApplication extends Application {
         userPreferences.setUserPreferences();
         userBean = UserBean.INSTANCE;
         cipherBean = CipherBean.INSTANCE;
+        userService = new UserServiceImplimentation();
     }
 }
 

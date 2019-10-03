@@ -84,10 +84,10 @@ public class RegistrationController implements Initializable {
 
     public void signUp(ActionEvent actionEvent) throws NoSuchAlgorithmException, NoSuchPaddingException, IOException {
         if (validateInputs()) {
+            User savedUser = userService.getUser(uidField.getText());
             if (userService.getUser(uidField.getText()) == null) {
                 setUserInformation();
                 userService.createUser(user);
-                userPreferences.setUserID(user.getUserId());
                 setLocalData();
                 stageManager.switchScene(FXMLView.MAIN);
             } else {
@@ -98,22 +98,29 @@ public class RegistrationController implements Initializable {
     }
 
     private void setLocalData() {
-        UserService userService = new UserServiceImplimentation();
-        User user = userService.getUser(userPreferences.getUserID());
-        userBean.setUserID(user.getUserId());
-        userBean.setFirstName(user.getFirstName());
-        userBean.setLastName(user.getLastName());
-        userBean.setEmail(user.getEmail());
-        try {
-            cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-            e.printStackTrace();
-        }
-        EFileList savedList = listPreferences.getList();
-        assert savedList != null;
-        if (savedList.getFiles() == null) {
-            userBean.setFileList(new EFileList());
-        } else userBean.setFileList(savedList);
+        Platform.runLater(() -> {
+            user = userService.getUser(uidField.getText());
+            userBean.setUserID(user.getUserId());
+            userBean.setFirstName(user.getFirstName());
+            userBean.setLastName(user.getLastName());
+            userBean.setEmail(user.getEmail());
+            try {
+                cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+            } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+                e.printStackTrace();
+            }
+            userPreferences.setUserID(userBean.getUserID());
+            EFileList savedList = listPreferences.getList();
+            assert savedList != null;
+            if (savedList.getFiles() == null) {
+                userBean.setFileList(new EFileList());
+            } else userBean.setFileList(savedList);
+            try {
+                stageManager.switchScene(FXMLView.MAIN);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void setUserInformation() throws NoSuchPaddingException, NoSuchAlgorithmException {
@@ -242,8 +249,8 @@ public class RegistrationController implements Initializable {
         listPreferences = ListPreferences.INSTANCE;
         userBean = UserBean.INSTANCE;
         cipherBean = CipherBean.INSTANCE;
-        user = new User();
         userService = new UserServiceImplimentation();
+        user = new User();
     }
 
     private void cleanUpWarning() {

@@ -81,8 +81,7 @@ public class LoginController implements Initializable {
     }
 
     private void setUserInfo(boolean isChecked) {
-        UserService userService = new UserServiceImplimentation();
-        User user = userService.getUser(userPreferences.getUserID());
+        user = userService.getUser(uidField.getText());
         userBean.setUserID(user.getUserId());
         userBean.setFirstName(user.getFirstName());
         userBean.setLastName(user.getLastName());
@@ -143,6 +142,7 @@ public class LoginController implements Initializable {
         listPreferences = ListPreferences.INSTANCE;
         userPreferences = UserPreferences.INSTANCE;
         userService = new UserServiceImplimentation();
+        user = new User();
     }
 
     private void cleanUpWarning() {
