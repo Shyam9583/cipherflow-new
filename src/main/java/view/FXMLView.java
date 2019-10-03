@@ -87,6 +87,18 @@ public enum FXMLView {
         public String getFxmlFile() {
             return "fxml/learn.fxml";
         }
+    },
+
+    WELCOME {
+        @Override
+        public String getTitle() {
+            return "welcome Screen";
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "fxml/welcome.fxml";
+        }
     };
 
     //returns the title to display on screen

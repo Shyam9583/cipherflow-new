@@ -15,18 +15,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import model.EFile;
 import model.EFileList;
-import model.User;
-import service.UserService;
-import service.UserServiceImplimentation;
 import util.ListPreferences;
 import util.StageManager;
 import util.UserPreferences;
 import view.FXMLView;
 
-import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -64,19 +59,19 @@ public class MainController implements Initializable {
         userPreferences = UserPreferences.INSTANCE;
         cipherBean = CipherBean.INSTANCE;
         listPreferences = ListPreferences.INSTANCE;
-        if (userBean.getUserID() == null) {
-            UserService userService = new UserServiceImplimentation();
-            User user = userService.getUser(userPreferences.getUserID());
-            userBean.setUserID(user.getUserId());
-            userBean.setFirstName(user.getFirstName());
-            userBean.setLastName(user.getLastName());
-            userBean.setEmail(user.getEmail());
-            try {
-                cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
-            } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (userBean.getUserID() == null) {
+//            UserService userService = new UserServiceImplimentation();
+//            User user = userService.getUser(userPreferences.getUserID());
+//            userBean.setUserID(user.getUserId());
+//            userBean.setFirstName(user.getFirstName());
+//            userBean.setLastName(user.getLastName());
+//            userBean.setEmail(user.getEmail());
+//            try {
+//                cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+//            } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+//                e.printStackTrace();
+//            }
+//        }
         eFileObservableList = FXCollections.observableList(userBean.getFileList().getFiles());
         pageName.setText(userBean.getFirstName() + "'s " + FXMLView.DASHBOARD.getTitle());
         try {

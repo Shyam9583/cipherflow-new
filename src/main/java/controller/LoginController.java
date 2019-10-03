@@ -7,8 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.EFileList;
 import model.User;
 import service.UserService;
 import service.UserServiceImplimentation;
@@ -69,12 +69,10 @@ public class LoginController implements Initializable {
     }
 
     public void gotoMain(ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException {
-        Image image = new Image("images/Round-loading.gif");
         String userId = uidField.getText();
         String password = passField.getText();
         boolean remember = rememberBox.isSelected();
         if (emptyValidation(userId, password)) {
-            loading.setImage(image);
             if (authenticate(userId, password)) {
                 setUserInfo(remember);
                 stageManager.switchScene(FXMLView.MAIN);
@@ -91,6 +89,11 @@ public class LoginController implements Initializable {
         if (isChecked) {
             userPreferences.setUserID(user.getUserId());
         }
+        EFileList savedList = listPreferences.getList();
+        assert savedList != null;
+        if (savedList.getFiles() == null) {
+            userBean.setFileList(new EFileList());
+        } else userBean.setFileList(savedList);
     }
 
     private boolean emptyValidation(String userId, String password) {
@@ -122,8 +125,8 @@ public class LoginController implements Initializable {
                 cleanUpWarning();
                 loginwarning.setText("Password is incorrect!");
             }
+            loading.setImage(null);
         }
-        loading.setImage(null);
         return result;
     }
 
