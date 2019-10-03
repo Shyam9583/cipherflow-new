@@ -59,19 +59,6 @@ public class MainController implements Initializable {
         userPreferences = UserPreferences.INSTANCE;
         cipherBean = CipherBean.INSTANCE;
         listPreferences = ListPreferences.INSTANCE;
-//        if (userBean.getUserID() == null) {
-//            UserService userService = new UserServiceImplimentation();
-//            User user = userService.getUser(userPreferences.getUserID());
-//            userBean.setUserID(user.getUserId());
-//            userBean.setFirstName(user.getFirstName());
-//            userBean.setLastName(user.getLastName());
-//            userBean.setEmail(user.getEmail());
-//            try {
-//                cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
-//            } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-//                e.printStackTrace();
-//            }
-//        }
         eFileObservableList = FXCollections.observableList(userBean.getFileList().getFiles());
         pageName.setText(userBean.getFirstName() + "'s " + FXMLView.DASHBOARD.getTitle());
         try {

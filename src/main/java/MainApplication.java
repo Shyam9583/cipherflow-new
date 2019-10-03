@@ -39,25 +39,28 @@ public class MainApplication extends Application {
         showInitialScene();
     }
 
-    private void showInitialScene() throws IOException, NoSuchAlgorithmException, NoSuchPaddingException {
+    private void showInitialScene() throws IOException {
         String savedUserId = userPreferences.getUserID();
         if (savedUserId == null) {
             stageManager.switchScene(FXMLView.LOGIN);
         } else {
-            stageManager.switchScene(FXMLView.WELCOME);
-            setUserInfo();
+            saveLocalData();
             stageManager.switchScene(FXMLView.MAIN);
         }
     }
 
-    private void setUserInfo() throws NoSuchPaddingException, NoSuchAlgorithmException {
+    private void saveLocalData() {
         UserService userService = new UserServiceImplimentation();
         User user = userService.getUser(userPreferences.getUserID());
         userBean.setUserID(user.getUserId());
         userBean.setFirstName(user.getFirstName());
         userBean.setLastName(user.getLastName());
         userBean.setEmail(user.getEmail());
-        cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+        try {
+            cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
         EFileList savedList = listPreferences.getList();
         assert savedList != null;
         if (savedList.getFiles() == null) {
@@ -76,3 +79,4 @@ public class MainApplication extends Application {
         cipherBean = CipherBean.INSTANCE;
     }
 }
+

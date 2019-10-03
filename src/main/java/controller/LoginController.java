@@ -80,14 +80,20 @@ public class LoginController implements Initializable {
         }
     }
 
-    private void setUserInfo(boolean isChecked) throws NoSuchPaddingException, NoSuchAlgorithmException {
+    private void setUserInfo(boolean isChecked) {
+        UserService userService = new UserServiceImplimentation();
+        User user = userService.getUser(userPreferences.getUserID());
         userBean.setUserID(user.getUserId());
         userBean.setFirstName(user.getFirstName());
         userBean.setLastName(user.getLastName());
         userBean.setEmail(user.getEmail());
-        cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+        try {
+            cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
         if (isChecked) {
-            userPreferences.setUserID(user.getUserId());
+            userPreferences.setUserID(userBean.getUserID());
         }
         EFileList savedList = listPreferences.getList();
         assert savedList != null;
