@@ -16,15 +16,15 @@
         </ImageView>
     </AnchorPane>
     <Button id="closeButton" fx:id="closeButton" layoutX="916.0" layoutY="14.0" mnemonicParsing="false"
-            onAction="#closeWindow" style="-fx-background-color: #f8f8f8;" styleClass="defaultButton"
-            stylesheets="@../styles/login.css" text="X" textAlignment="CENTER">
+            onAction="#closeWindow" styleClass="defaultButton" stylesheets="@../styles/login.css" text="X"
+            textAlignment="CENTER">
         <font>
             <Font name="Open Sans Bold" size="14.0"/>
         </font>
     </Button>
     <Button id="minButton" fx:id="minButton" layoutX="879.0" layoutY="14.0" mnemonicParsing="false"
-            onAction="#minimizeWindow" style="-fx-background-color: #f8f8f8;" styleClass="defaultButton"
-            stylesheets="@../styles/login.css" text="-" textAlignment="CENTER">
+            onAction="#minimizeWindow" styleClass="defaultButton" stylesheets="@../styles/login.css" text="-"
+            textAlignment="CENTER">
         <font>
             <Font name="Open Sans Bold" size="14.0"/>
         </font>

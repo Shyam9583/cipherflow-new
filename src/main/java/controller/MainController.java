@@ -93,12 +93,12 @@ public class MainController implements Initializable {
     }
 
     public void gotoLearn(ActionEvent actionEvent) throws IOException {
-        pageName.setText(FXMLView.LEARN.getTitle());
+        pageName.setText(userBean.getFirstName() + "'s " + FXMLView.LEARN.getTitle());
         setContent(FXMLView.LEARN);
     }
 
     public void gotoAbout(ActionEvent actionEvent) throws IOException {
-        pageName.setText(FXMLView.ABOUT.getTitle());
+        pageName.setText(userBean.getFirstName() + "'s " + FXMLView.ABOUT.getTitle());
         setContent(FXMLView.ABOUT);
     }
 
