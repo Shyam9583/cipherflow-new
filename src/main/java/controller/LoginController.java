@@ -50,7 +50,6 @@ public class LoginController implements Initializable {
 
     private StageManager stageManager;
     private UserService userService;
-    private User user;
     private UserBean userBean;
     private CipherBean cipherBean;
     private ListPreferences listPreferences;
@@ -125,7 +124,6 @@ public class LoginController implements Initializable {
         } else {
             cipherBean.setParameters(u.getSecretKey(), u.getIvKey(), u.getSalt());
             if (cipherBean.getSecurePassword(password).equals(u.getPassword())) {
-                user = u;
                 result = true;
             } else {
                 cleanUpWarning();
