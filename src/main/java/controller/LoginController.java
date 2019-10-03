@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import model.EFileList;
 import model.User;
 import service.UserService;
@@ -45,8 +44,7 @@ public class LoginController implements Initializable {
     public Label passwarning;
     @FXML
     public Label loginwarning;
-    @FXML
-    public ImageView loading;
+
 
     private StageManager stageManager;
     private UserService userService;
@@ -130,7 +128,6 @@ public class LoginController implements Initializable {
                 cleanUpWarning();
                 loginwarning.setText("Password is incorrect!");
             }
-            loading.setImage(null);
         }
         return result;
     }
