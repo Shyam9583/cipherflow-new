@@ -1,6 +1,5 @@
 package controller;
 
-import bean.CipherBean;
 import bean.UserBean;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -49,7 +48,6 @@ public class MainController implements Initializable {
     private StageManager stageManager;
     private UserPreferences userPreferences;
     private UserBean userBean;
-    private CipherBean cipherBean;
     private ListPreferences listPreferences;
 
     @Override
@@ -57,7 +55,6 @@ public class MainController implements Initializable {
         userBean = UserBean.INSTANCE;
         stageManager = StageManager.INSTANCE;
         userPreferences = UserPreferences.INSTANCE;
-        cipherBean = CipherBean.INSTANCE;
         listPreferences = ListPreferences.INSTANCE;
         eFileObservableList = FXCollections.observableList(userBean.getFileList().getFiles());
         pageName.setText(userBean.getFirstName() + "'s " + FXMLView.DASHBOARD.getTitle());
