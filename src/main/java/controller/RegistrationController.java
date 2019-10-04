@@ -84,7 +84,6 @@ public class RegistrationController implements Initializable {
 
     public void signUp(ActionEvent actionEvent) throws NoSuchAlgorithmException, NoSuchPaddingException, IOException {
         if (validateInputs()) {
-            User savedUser = userService.getUser(uidField.getText());
             if (userService.getUser(uidField.getText()) == null) {
                 setUserInformation();
                 userService.createUser(user);
@@ -98,29 +97,22 @@ public class RegistrationController implements Initializable {
     }
 
     private void setLocalData() {
-        Platform.runLater(() -> {
-            user = userService.getUser(uidField.getText());
-            userBean.setUserID(user.getUserId());
-            userBean.setFirstName(user.getFirstName());
-            userBean.setLastName(user.getLastName());
-            userBean.setEmail(user.getEmail());
-            try {
-                cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
-            } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-                e.printStackTrace();
-            }
-            userPreferences.setUserID(userBean.getUserID());
-            EFileList savedList = listPreferences.getList();
-            assert savedList != null;
-            if (savedList.getFiles() == null) {
-                userBean.setFileList(new EFileList());
-            } else userBean.setFileList(savedList);
-            try {
-                stageManager.switchScene(FXMLView.MAIN);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        user = userService.getUser(uidField.getText());
+        userBean.setUserID(user.getUserId());
+        userBean.setFirstName(user.getFirstName());
+        userBean.setLastName(user.getLastName());
+        userBean.setEmail(user.getEmail());
+        try {
+            cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
+        userPreferences.setUserID(userBean.getUserID());
+        EFileList savedList = listPreferences.getList();
+        assert savedList != null;
+        if (savedList.getFiles() == null) {
+            userBean.setFileList(new EFileList());
+        } else userBean.setFileList(savedList);
     }
 
     private void setUserInformation() throws NoSuchPaddingException, NoSuchAlgorithmException {

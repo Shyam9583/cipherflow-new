@@ -66,11 +66,6 @@ public class MainApplication extends Application {
         if (savedList.getFiles() == null) {
             userBean.setFileList(new EFileList());
         } else userBean.setFileList(savedList);
-        try {
-            stageManager.switchScene(FXMLView.MAIN);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
