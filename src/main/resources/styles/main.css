@@ -21,7 +21,7 @@
 
 #selectButton:hover {
 -fx-background-color:rgba(18, 130, 56, 1);
--fx-border:color:transparent;
+-fx-border-color:transparent;
 -fx-text-fill:#ffffff;
 }
 

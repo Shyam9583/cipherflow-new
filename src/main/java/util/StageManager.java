@@ -26,13 +26,17 @@ public enum StageManager {
         this.loader = loader;
     }
 
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
     public void switchScene(FXMLView view) throws IOException {
         prepareScene(view);
         primaryStage.show();
+    }
+
+    public Stage getPrimaryStage() {
+        return this.primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 
     private void prepareScene(FXMLView view) throws IOException {

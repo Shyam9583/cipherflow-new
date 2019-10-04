@@ -1,57 +1,77 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
-public class EFile implements Serializable {
-    private static final long serialVersionUID = 4545454545454545454L;
-    private String fileName;
-    private String filePath;
-    private Date lastEncrypted;
+public class EFile {
 
-    public EFile() {
-    }
+    private StringProperty fileName;
+    private StringProperty filePath;
+    private StringProperty lastEncrypted;
 
     public EFile(String filePath, Date lastEncrypted) {
         int idx = filePath.lastIndexOf("/") + 1;
         if (idx < filePath.length()) {
-            this.fileName = filePath.substring(idx);
-        } else this.fileName = "";
-        this.filePath = filePath;
-        this.lastEncrypted = lastEncrypted;
+            this.fileName = new SimpleStringProperty(filePath.substring(idx));
+        } else this.fileName = new SimpleStringProperty("");
+        this.filePath = new SimpleStringProperty(filePath);
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        this.lastEncrypted = new SimpleStringProperty(dateFormat.format(lastEncrypted));
+    }
+
+    public EFile() {
+
     }
 
     public String getFileName() {
+        return fileName.getValue();
+    }
+
+    public StringProperty fileNameProperty() {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public String getFilePath() {
-        return filePath;
+        return filePath.getValue();
     }
 
     public void setFilePath(String filePath) {
-        this.filePath = filePath;
+        this.filePath.set(filePath);
+        int idx = filePath.lastIndexOf("/") + 1;
+        if (idx < filePath.length()) {
+            this.fileName.set(filePath.substring(idx));
+        } else this.fileName.set("");
     }
 
-    public Date getLastEncrypted() {
-        return lastEncrypted;
+    public StringProperty filePathProperty() {
+        return filePath;
+    }
+
+    public String getLastEncrypted() {
+        return lastEncrypted.getValue();
     }
 
     public void setLastEncrypted(Date lastEncrypted) {
-        this.lastEncrypted = lastEncrypted;
+        Locale locale = new Locale("en", "IN");
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
+        this.lastEncrypted.set(dateFormat.format(lastEncrypted));
+    }
+
+    public StringProperty lastEncryptedProperty() {
+        return lastEncrypted;
     }
 
     @Override
     public String toString() {
         return "EFile{" +
-                "fileName='" + fileName + '\'' +
-                ", filePath='" + filePath + '\'' +
-                ", lastEncrypted=" + lastEncrypted +
+                "fileName=" + fileName.get() +
+                ", filePath=" + filePath.get() +
+                ", lastEncrypted=" + lastEncrypted.get() +
                 '}';
     }
 }

@@ -5,7 +5,7 @@ import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.EFileList;
+import model.SavedFileList;
 import model.User;
 import service.UserService;
 import service.UserServiceImplimentation;
@@ -61,10 +61,9 @@ public class MainApplication extends Application {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             e.printStackTrace();
         }
-        EFileList savedList = listPreferences.getList();
-        assert savedList != null;
-        if (savedList.getFiles() == null) {
-            userBean.setFileList(new EFileList());
+        SavedFileList savedList = listPreferences.getList();
+        if (savedList == null) {
+            userBean.setFileList(new SavedFileList());
         } else userBean.setFileList(savedList);
     }
 

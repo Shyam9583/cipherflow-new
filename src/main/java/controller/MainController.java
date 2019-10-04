@@ -13,7 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import model.EFile;
-import model.EFileList;
+import model.SavedFile;
+import model.SavedFileList;
 import util.ListPreferences;
 import util.StageManager;
 import util.UserPreferences;
@@ -21,12 +22,14 @@ import view.FXMLView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private static ObservableList<EFile> eFileObservableList;
+    static ObservableList<EFile> eFileObservableList;
     @FXML
     public Button dashboard;
     @FXML
@@ -56,13 +59,19 @@ public class MainController implements Initializable {
         stageManager = StageManager.INSTANCE;
         userPreferences = UserPreferences.INSTANCE;
         listPreferences = ListPreferences.INSTANCE;
-        eFileObservableList = FXCollections.observableList(userBean.getFileList().getFiles());
+        savedToObservable();
         pageName.setText(userBean.getFirstName() + "'s " + FXMLView.DASHBOARD.getTitle());
         try {
             setContent(FXMLView.DASHBOARD);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void savedToObservable() {
+        List<EFile> eFiles = new ArrayList<>();
+        userBean.getFileList().getFiles().forEach(item -> eFiles.add(new EFile(item.getSavedFilePath(), item.getSavedLastEncrypted())));
+        eFileObservableList = FXCollections.observableList(eFiles);
     }
 
     private void setContent(FXMLView view) throws IOException {
@@ -106,7 +115,16 @@ public class MainController implements Initializable {
     }
 
     private void saveList() {
-        userBean.setFileList(new EFileList(new ArrayList<>(eFileObservableList)));
+        eFileObservableList = DashboardController.observableList;
+        ArrayList<SavedFile> savedFiles = new ArrayList<>();
+        eFileObservableList.forEach(item -> {
+            try {
+                savedFiles.add(new SavedFile(item.getFilePath(), item.getLastEncrypted()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+        userBean.setFileList(new SavedFileList(savedFiles));
         listPreferences.setList(userBean.getFileList());
     }
 }

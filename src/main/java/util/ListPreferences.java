@@ -1,6 +1,6 @@
 package util;
 
-import model.EFileList;
+import model.SavedFileList;
 
 import java.io.*;
 import java.util.prefs.Preferences;
@@ -12,9 +12,9 @@ public enum ListPreferences {
     final String key = "List";
     Preferences preferences;
 
-    public EFileList getList() {
+    public SavedFileList getList() {
         byte[] stored;
-        EFileList eFileList;
+        SavedFileList eFileList;
         try {
             stored = preferences.getByteArray(key, null);
             if (stored == null) {
@@ -22,8 +22,8 @@ public enum ListPreferences {
             } else {
                 ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(stored));
                 Object object = objectInputStream.readObject();
-                if (object instanceof EFileList) {
-                    eFileList = (EFileList) object;
+                if (object instanceof SavedFileList) {
+                    eFileList = (SavedFileList) object;
                     return eFileList;
                 }
             }
@@ -33,7 +33,7 @@ public enum ListPreferences {
         return null;
     }
 
-    public void setList(EFileList eFileList) {
+    public void setList(SavedFileList eFileList) {
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);

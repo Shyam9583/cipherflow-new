@@ -1,6 +1,6 @@
 package bean;
 
-import model.EFileList;
+import model.SavedFileList;
 
 public enum UserBean {
     INSTANCE;
@@ -8,7 +8,7 @@ public enum UserBean {
     String firstName;
     String lastName;
     String email;
-    EFileList fileList;
+    SavedFileList fileList;
 
     public String getUserID() {
         return userID;
@@ -42,11 +42,11 @@ public enum UserBean {
         this.email = email;
     }
 
-    public EFileList getFileList() {
+    public SavedFileList getFileList() {
         return fileList;
     }
 
-    public void setFileList(EFileList fileList) {
+    public void setFileList(SavedFileList fileList) {
         this.fileList = fileList;
     }
 

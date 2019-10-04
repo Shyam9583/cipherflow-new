@@ -7,7 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import model.EFileList;
+import model.SavedFileList;
 import model.User;
 import service.UserService;
 import service.UserServiceImplimentation;
@@ -92,10 +92,9 @@ public class LoginController implements Initializable {
         if (isChecked) {
             userPreferences.setUserID(userBean.getUserID());
         }
-        EFileList savedList = listPreferences.getList();
-        assert savedList != null;
-        if (savedList.getFiles() == null) {
-            userBean.setFileList(new EFileList());
+        SavedFileList savedList = listPreferences.getList();
+        if (savedList == null) {
+            userBean.setFileList(new SavedFileList());
         } else userBean.setFileList(savedList);
     }
 

@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import model.EFileList;
+import model.SavedFileList;
 import model.User;
 import service.UserService;
 import service.UserServiceImplimentation;
@@ -108,10 +108,9 @@ public class RegistrationController implements Initializable {
             e.printStackTrace();
         }
         userPreferences.setUserID(userBean.getUserID());
-        EFileList savedList = listPreferences.getList();
-        assert savedList != null;
-        if (savedList.getFiles() == null) {
-            userBean.setFileList(new EFileList());
+        SavedFileList savedList = listPreferences.getList();
+        if (savedList == null) {
+            userBean.setFileList(new SavedFileList());
         } else userBean.setFileList(savedList);
     }
 
