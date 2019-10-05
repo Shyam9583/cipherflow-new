@@ -39,14 +39,17 @@ public enum CipherBean {
 
 
     //this is the method for encryption
-    public boolean Encrypt(File file) throws Exception {
-        File destinationFile;
+    public void encrypt(File file) throws Exception {
 
-        String path = file.getAbsolutePath().replace("/", "//");//get path of file
+        String path = file.getAbsolutePath();//get path of file
+
+        if (path.substring(path.length() - 4).equals(".enc")) {
+            return;
+        }
 
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
 
-        destinationFile = new File(path.concat(".enc"));//creation of new file with .enc extension
+        File destinationFile = new File(path.concat(".enc"));//creation of new file with .enc extension
         if (destinationFile.exists()) {
             if (destinationFile.delete())
                 destinationFile = new File(path.concat(".enc"));
@@ -71,29 +74,28 @@ public enum CipherBean {
 
         File outFile = new File(path);
         if (outFile.exists()) {
-            if (outFile.delete())
+            if (!outFile.delete())
                 throw new Exception("File deletion failed");
             //original file is deleted
         }
-        return true;
     }
 
 
     //this method is used for decryption of files
-    public boolean Decrypt(File file)
-
-            throws Exception {
-
-        File destinationFile;
+    public void decrypt(File file) throws Exception {
 
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
 
-        String path = file.getAbsolutePath().replace("/", "//");
+        String path;
 
-        destinationFile = new File(path.replaceAll(".enc", ""));
+        if (!file.getAbsolutePath().substring(file.getAbsolutePath().length() - 4).equals(".enc")) {
+            path = file.getAbsolutePath().concat(".enc");
+        } else path = file.getAbsolutePath();
+
+        File destinationFile = new File(file.getAbsolutePath());
         if (destinationFile.exists()) {
             if (destinationFile.delete())
-                destinationFile = new File(path.replaceAll(".enc", ""));
+                destinationFile = new File(file.getAbsolutePath());
         }
 
         BufferedInputStream in = new BufferedInputStream(new FileInputStream(path));//read from encrypted file
@@ -116,9 +118,8 @@ public enum CipherBean {
 
         File outFile = new File(path);
         if (outFile.exists())
-            if (outFile.delete())
+            if (!outFile.delete())
                 throw new Exception("File deletion failed");//encrypted file is deleted
-        return true;
     }
 
     //this method is for password hashing

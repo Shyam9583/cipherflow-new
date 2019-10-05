@@ -9,7 +9,7 @@ public enum ListPreferences {
 
     INSTANCE;
 
-    final String key = "List";
+    String key;
     Preferences preferences;
 
     public SavedFileList getList() {
@@ -44,13 +44,27 @@ public enum ListPreferences {
         }
     }
 
-    public boolean removeList() {
-        byte[] stored = preferences.getByteArray(key, null);
+    public boolean removeList(String userId) {
+        byte[] stored = preferences.getByteArray(userId + "-List", null);
         if (stored != null) {
-            preferences.remove(key);
+            preferences.remove(userId + "-List");
             return true;
         }
         return false;
+    }
+
+    public boolean removeList() {
+        byte[] stored = preferences.getByteArray("List", null);
+        if (stored != null) {
+            preferences.remove("List");
+            return true;
+        }
+        return false;
+    }
+
+    public void setListPreferences(String userId) {
+        this.key = userId + "-List";
+        this.preferences = Preferences.userRoot().node(this.getClass().getName());
     }
 
     public void setListPreferences() {

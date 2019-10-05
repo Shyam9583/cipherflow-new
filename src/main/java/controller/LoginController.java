@@ -92,6 +92,7 @@ public class LoginController implements Initializable {
         if (isChecked) {
             userPreferences.setUserID(userBean.getUserID());
         }
+        listPreferences.setListPreferences(userBean.getUserID());
         SavedFileList savedList = listPreferences.getList();
         if (savedList == null) {
             userBean.setFileList(new SavedFileList());

@@ -108,6 +108,7 @@ public class RegistrationController implements Initializable {
             e.printStackTrace();
         }
         userPreferences.setUserID(userBean.getUserID());
+        listPreferences.setListPreferences(userBean.getUserID());
         SavedFileList savedList = listPreferences.getList();
         if (savedList == null) {
             userBean.setFileList(new SavedFileList());
@@ -119,9 +120,9 @@ public class RegistrationController implements Initializable {
         user.setFirstName(fname.getText());
         user.setLastName(lname.getText());
         user.setEmail(email.getText());
-        user.setSecretKey(GeneratorClass.GenerateKey());
-        user.setIvKey(GeneratorClass.GenerateIV());
-        user.setSalt(GeneratorClass.GenerateSalt());
+        user.setSecretKey(GeneratorClass.Generate());
+        user.setIvKey(GeneratorClass.Generate());
+        user.setSalt(GeneratorClass.Generate());
         cipherBean.setParameters(user.getSecretKey(), user.getIvKey(), user.getSalt());
         user.setPassword(cipherBean.getSecurePassword(passField.getText()));
     }

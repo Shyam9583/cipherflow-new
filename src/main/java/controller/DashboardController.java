@@ -41,6 +41,7 @@ public class DashboardController implements Initializable {
     private CipherBean cipherBean;
     private StageManager stageManager;
     private List<String> observableUrl;
+    private List<EFile> selectedFiles;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,16 +54,14 @@ public class DashboardController implements Initializable {
 
     public void decryptSelectionFromTable(ActionEvent actionEvent) {
         List<EFile> selectedFiles = encryptionTable.getSelectionModel().getSelectedItems();
-        selectedFiles.forEach(item -> removeFileFromEncryptionList(item.getFilePath()));
-    }
-
-    private void removeFileFromEncryptionList(String filePath) {
-        observableUrl = new ArrayList<>();
-        new ArrayList<>(observableList).forEach(item -> observableUrl.add(item.getFilePath()));
-        int idx = observableUrl.indexOf(filePath);
-        if (idx != -1) {
-            observableList.remove(idx);
-        }
+        selectedFiles.forEach(item -> {
+            try {
+                cipherBean.decrypt(new File(item.getFilePath()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        observableList.removeAll(selectedFiles);
     }
 
     public void browseFiles(ActionEvent actionEvent) {
@@ -79,25 +78,53 @@ public class DashboardController implements Initializable {
         }
     }
 
-    public void decryptFiles(ActionEvent actionEvent) {
+    public void decryptFiles(ActionEvent actionEvent) throws Exception {
+        String[] urlList = fileUrlField.getText().split(",");
+        if (isValidUrlList(urlList)) {
+            observableUrl = new ArrayList<>();
+            new ArrayList<>(observableList).forEach(item -> observableUrl.add(item.getFilePath()));
+            selectedFiles = new ArrayList<>();
+            for (String path : urlList) {
+                if (path.substring(path.length() - 4).equals(".enc")) {
+                    path = path.replace(".enc", "");
+                    if (observableUrl.contains(path)) {
+                        cipherBean.decrypt(new File(path));
+                        removeFileFromEncryptionList(path);
+                    } else showAlert("Can't decrypt", "The file is not encrypted by your key!");
+                } else showAlert(path.substring(path.lastIndexOf("/") + 1), "File is not encrypted");
+            }
+            observableList.removeAll(selectedFiles);
+        } else showAlert("invalid url input", "Please Enter Valid File Path!");
     }
 
-    public void encryptFiles(ActionEvent actionEvent) {
+    public void encryptFiles(ActionEvent actionEvent) throws Exception {
         String[] urlList = fileUrlField.getText().split(",");
         if (isValidUrlList(urlList)) {
             observableUrl = new ArrayList<>();
             new ArrayList<>(observableList).forEach(item -> observableUrl.add(item.getFilePath()));
             for (String path : urlList) {
+                cipherBean.encrypt(new File(path));
                 addFileToEncryptionList(path);
             }
-        } else showAlert("Please Enter Valid File Path!");
+        } else showAlert("invalid url input", "Please Enter Valid File Path!");
     }
 
     private void addFileToEncryptionList(String path) {
         if (!observableUrl.contains(path)) {
             File file = new File(path);
             observableList.add(new EFile(file.getAbsolutePath(), new Date(System.currentTimeMillis())));
+        } else {
+            int idx = path.lastIndexOf("/") + 1;
+            if (idx < path.length()) {
+                String filName = path.substring(idx);
+                showAlert(filName, "file is already encrypted!");
+            }
         }
+    }
+
+    private void removeFileFromEncryptionList(String path) {
+        int index = observableUrl.indexOf(path);
+        selectedFiles.add(observableList.get(index));
     }
 
     private boolean isValidUrlList(String[] strings) {
@@ -108,9 +135,9 @@ public class DashboardController implements Initializable {
         return true;
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("invalid Input");
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
 

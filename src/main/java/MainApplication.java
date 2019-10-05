@@ -61,6 +61,7 @@ public class MainApplication extends Application {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             e.printStackTrace();
         }
+        listPreferences.setListPreferences(userBean.getUserID());
         SavedFileList savedList = listPreferences.getList();
         if (savedList == null) {
             userBean.setFileList(new SavedFileList());
@@ -72,7 +73,6 @@ public class MainApplication extends Application {
         stageManager = StageManager.INSTANCE;
         userPreferences = UserPreferences.INSTANCE;
         listPreferences = ListPreferences.INSTANCE;
-        listPreferences.setListPreferences();
         userPreferences.setUserPreferences();
         userBean = UserBean.INSTANCE;
         cipherBean = CipherBean.INSTANCE;
