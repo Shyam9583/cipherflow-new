@@ -58,17 +58,17 @@ public enum CipherBean {
         BufferedInputStream in = new BufferedInputStream(new FileInputStream(path));//read from this file
         FileOutputStream out = new FileOutputStream(destinationFile, true);//write to this file
 
-        byte[] ibuf = new byte[1024];
+        byte[] iBuf = new byte[1024];
         int len;
-        while ((len = in.read(ibuf)) != -1) {
-            byte[] obuf = cipher.update(ibuf, 0, len);
-            if (obuf != null)
-                out.write(obuf);
+        while ((len = in.read(iBuf)) != -1) {
+            byte[] oBuf = cipher.update(iBuf, 0, len);
+            if (oBuf != null)
+                out.write(oBuf);
         }
 
-        byte[] obuf = cipher.doFinal();
-        if (obuf != null)
-            out.write(obuf);//encrypted file is created
+        byte[] oBuf = cipher.doFinal();
+        if (oBuf != null)
+            out.write(oBuf);//encrypted file is created
         in.close();
         out.close();
 
@@ -102,16 +102,16 @@ public enum CipherBean {
 
         FileOutputStream out = new FileOutputStream(destinationFile, true);//write to original file
 
-        byte[] ibuf = new byte[1024];
+        byte[] iBuf = new byte[1024];
         int len;
-        while ((len = in.read(ibuf)) != -1) {
-            byte[] obuf = cipher.update(ibuf, 0, len);
-            if (obuf != null)
-                out.write(obuf);
+        while ((len = in.read(iBuf)) != -1) {
+            byte[] oBuf = cipher.update(iBuf, 0, len);
+            if (oBuf != null)
+                out.write(oBuf);
         }
-        byte[] obuf = cipher.doFinal();
-        if (obuf != null) {
-            out.write(obuf);//file is decrypted
+        byte[] oBuf = cipher.doFinal();
+        if (oBuf != null) {
+            out.write(oBuf);//file is decrypted
         }
         in.close();
         out.close();
