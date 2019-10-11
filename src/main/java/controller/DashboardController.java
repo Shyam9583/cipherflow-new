@@ -138,6 +138,5 @@ public class DashboardController implements Initializable {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
-
     }
 }
