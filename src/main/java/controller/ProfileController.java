@@ -42,49 +42,58 @@ public class ProfileController implements Initializable {
     public void changeName(ActionEvent actionEvent) {
         String result = showDialog("Full Name", "[A-Za-z]+\\s+[A-Za-z]+");
         if (result != null) {
-            User user = userService.getUser(userBean.getUserID());
-            nameProperty.set(result);
-            String[] subName = result.split(" ");
-            userBean.setFirstName(subName[0]);
-            userBean.setLastName(subName[1]);
-            user.setFirstName(userBean.getFirstName());
-            user.setLastName(userBean.getLastName());
-            userService.updateUser(user);
+            if (result.equals("$$invalid$$")) showAlert();
+            else {
+                User user = userService.getUser(userBean.getUserID());
+                nameProperty.set(result);
+                String[] subName = result.split(" ");
+                userBean.setFirstName(subName[0]);
+                userBean.setLastName(subName[1]);
+                user.setFirstName(userBean.getFirstName());
+                user.setLastName(userBean.getLastName());
+                userService.updateUser(user);
+            }
         }
     }
 
     public void changePassword(ActionEvent actionEvent) {
         String result = showDialog("Password", "[A-Za-z0-9!@#$%^&*]{8,}");
         if (result != null) {
-            User user = userService.getUser(userBean.getUserID());
-            user.setPassword(cipherBean.getSecurePassword(result));
-            userService.updateUser(user);
+            if (result.equals("$$invalid$$")) showAlert();
+            else {
+                User user = userService.getUser(userBean.getUserID());
+                user.setPassword(cipherBean.getSecurePassword(result));
+                userService.updateUser(user);
+            }
         }
     }
 
     public void changeEmail(ActionEvent actionEvent) {
         String result = showDialog("Email", "[^@]+@[^\\.]+\\..+");
         if (result != null) {
-            User user = userService.getUser(userBean.getUserID());
-            emailProperty.set(result);
-            userBean.setEmail(result);
-            user.setEmail(result);
-            userService.updateUser(user);
+            if (result.equals("$$invalid$$")) showAlert();
+            else {
+                User user = userService.getUser(userBean.getUserID());
+                emailProperty.set(result);
+                userBean.setEmail(result);
+                user.setEmail(result);
+                userService.updateUser(user);
+            }
         }
     }
 
     private String showDialog(String field, String pattern) {
-        Dialog dialog = new TextInputDialog(field);
+        Dialog dialog = new TextInputDialog();
         dialog.setTitle("Change " + field);
         dialog.setHeaderText("Enter the new value below");
+        dialog.setOnCloseRequest((event) -> dialog.close());
 
         Optional input = dialog.showAndWait();
 
         if (input.isPresent()) {
-            if (!patternValidation(input.toString(), pattern)) {
-                showAlert("Invalid Input", "the entered value is invalid");
-                return null;
-            } else return input.toString();
+            if (patternValidation(input.toString(), pattern)) {
+                return "$$invalid$$";
+            } else return (String) input.get();
         } else return null;
     }
 
@@ -92,10 +101,10 @@ public class ProfileController implements Initializable {
         return !text.matches(pattern);
     }
 
-    private void showAlert(String title, String message) {
+    private void showAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setContentText(message);
+        alert.setTitle("Invalid Input");
+        alert.setContentText("the entered value is invalid");
         alert.showAndWait();
     }
 
