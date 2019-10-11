@@ -59,6 +59,7 @@ public class MainController implements Initializable {
         stageManager = StageManager.INSTANCE;
         userPreferences = UserPreferences.INSTANCE;
         listPreferences = ListPreferences.INSTANCE;
+        profile.setText(userBean.getUserID());
         savedToObservable();
         pageName.setText(userBean.getFirstName() + "'s " + FXMLView.DASHBOARD.getTitle());
         try {
