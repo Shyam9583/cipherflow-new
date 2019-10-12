@@ -56,7 +56,10 @@ public class DashboardController implements Initializable {
         List<EFile> selectedFiles = encryptionTable.getSelectionModel().getSelectedItems();
         selectedFiles.forEach(item -> {
             try {
-                cipherBean.decrypt(new File(item.getFilePath()));
+                File file = new File(item.getFilePath().concat(".enc"));
+                if(file.exists())
+                    cipherBean.decrypt(new File(item.getFilePath()));
+                else showAlert(item.getFilePath().substring(item.getFilePath().lastIndexOf("/")+1),"File not present in folder");
             } catch (Exception e) {
                 e.printStackTrace();
             }
