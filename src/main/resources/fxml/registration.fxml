@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrationController">
+<AnchorPane prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #DDDDDD;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrationController">
     <AnchorPane id="register-left" prefHeight="540.0" prefWidth="360.0" stylesheets="@../styles/registration.css">
         <ImageView fitHeight="540.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../images/Register-left.jpg" />
