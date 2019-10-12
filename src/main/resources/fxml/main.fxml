@@ -29,7 +29,7 @@
     </ImageView>
     <Button fx:id="profile" layoutY="112.0" mnemonicParsing="false" onAction="#gotoProfile" prefHeight="52.0"
             prefWidth="180.0" style="-fx-background-color: rgba(0,0,0,0);" styleClass="nav-button"
-            stylesheets="@../styles/main.css" text="Shyam9583" textAlignment="RIGHT" textFill="#fcf2f2">
+            stylesheets="@../styles/main.css" textAlignment="RIGHT" textFill="#fcf2f2">
         <font>
             <Font name="Open Sans Bold" size="16.0"/>
         </font>

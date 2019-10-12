@@ -62,3 +62,16 @@
 -fx-scale-x:0.9;
 -fx-scale-y:0.9;
 }
+
+.changeButton {
+-fx-background-color:rgba(29, 173, 53);
+-fx-border-color:transparent;
+-fx-background-radius:0px;
+-fx-text-fill:#ffffff;
+}
+
+.changeButton:pressed {
+-fx-scale-x:0.9;
+-fx-scale-y:0.9;
+}
+

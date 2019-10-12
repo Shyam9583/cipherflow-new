@@ -103,23 +103,21 @@ public class DashboardController implements Initializable {
             observableUrl = new ArrayList<>();
             new ArrayList<>(observableList).forEach(item -> observableUrl.add(item.getFilePath()));
             for (String path : urlList) {
-                cipherBean.encrypt(new File(path));
-                addFileToEncryptionList(path);
+                if (path.substring(path.length() - 4).equals(".enc")) {
+                    int idx = path.lastIndexOf("/") + 1;
+                    if (idx < path.length())
+                        showAlert(path.substring(idx), "the file is already encrypted!");
+                } else if (!observableUrl.contains(path)) {
+                    cipherBean.encrypt(new File(path));
+                    addFileToEncryptionList(path);
+                }
             }
         } else showAlert("invalid url input", "Please Enter Valid File Path!");
     }
 
     private void addFileToEncryptionList(String path) {
-        if (!observableUrl.contains(path)) {
-            File file = new File(path);
-            observableList.add(new EFile(file.getAbsolutePath(), new Date(System.currentTimeMillis())));
-        } else {
-            int idx = path.lastIndexOf("/") + 1;
-            if (idx < path.length()) {
-                String filName = path.substring(idx);
-                showAlert(filName, "file is already encrypted!");
-            }
-        }
+        File file = new File(path);
+        observableList.add(new EFile(file.getAbsolutePath(), new Date(System.currentTimeMillis())));
     }
 
     private void removeFileFromEncryptionList(String path) {
@@ -140,6 +138,5 @@ public class DashboardController implements Initializable {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
-
     }
 }
